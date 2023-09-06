@@ -1,6 +1,9 @@
 package io.bom.makBase.domain.rice
 
 import io.bom.makBase.domain.Auditing
+import io.bom.makBase.domain.Region
+import io.bom.makBase.domain.makkoli.Makkoli
+import io.bom.makBase.domain.makkoli.MakkoliRice
 import jakarta.persistence.*
 
 @Entity
@@ -16,6 +19,12 @@ class Rice(
     var amylose: Double,
     var starchValue: Double,
     var gelTemperature: Double,
+
+    @OneToMany(mappedBy = "rice")
+    var regionList: MutableList<RiceShare> = mutableListOf(),
+
+    @OneToMany(mappedBy = "rice")
+    val makkoliList: MutableList<MakkoliRice> = mutableListOf(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

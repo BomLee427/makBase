@@ -2,6 +2,7 @@ package io.bom.makBase.domain
 
 import io.bom.makBase.domain.rice.RiceShare
 import io.bom.makBase.domain.makkoli.Makkoli
+import io.bom.makBase.dto.region.RegionSummaryResponse
 import jakarta.persistence.*
 
 @Entity
@@ -40,7 +41,7 @@ class Region(
     val parentName: String?
         get() = this.parent?.nameKr
 
-    val topParentName: String?
+    val topParentName: String
         get() {
             var result: String? = null
             var p = this.parent
@@ -48,7 +49,7 @@ class Region(
                 result = p.nameKr
                 p = p.parent
             }
-            return result
+            return result ?: this.nameKr
         }
 
     fun delete(): Region {

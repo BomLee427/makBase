@@ -52,6 +52,17 @@ class Region(
             return result ?: this.nameKr
         }
 
+    val allParentRegions: List<RegionSummaryResponse>
+        get() {
+            var _parent = if (this.parent != null) this.parent else return listOf()
+            val _result = mutableListOf(_parent)
+            while (_parent != null) {
+                _result.add(parent)
+                _parent = _parent.parent
+            }
+            return _result.filterNotNull().map { RegionSummaryResponse.fromEntity(it) }.distinct()
+        }
+
     fun delete(): Region {
         super.softDelete()
         return this

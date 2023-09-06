@@ -1,0 +1,40 @@
+server:
+  forward-headers-strategy: framework
+
+spring:
+  profiles.active: dev
+
+  jpa:
+    open-in-view: false
+    properties:
+      jakarta:
+        persistence:
+          sharedCache:
+            mode: ENABLE_SELECTIVE
+      hibernate:
+        default_batch_fetch_size: 1000
+        globally_quoted_identifiers: true
+        globally_quoted_identifiers_skip_column_definitions: true
+        cache:
+          use_second_level_cache: true
+          region:
+            factory_class: jcache
+---
+# dev
+spring:
+  config.activate.on-profile: dev
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:makbase
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true # 외부 주소로도 접속 가능
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop

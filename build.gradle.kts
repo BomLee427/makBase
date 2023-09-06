@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.9.10"
 	kotlin("plugin.spring") version "1.9.10"
 	kotlin("plugin.jpa") version "1.9.10"
+	kotlin("kapt") version "1.9.10"
 }
 
 group = "io.bom"
@@ -38,12 +39,25 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 
+	// jsonNullable
+	// https://jsonobject.tistory.com/622
+	implementation("org.openapitools:jackson-databind-nullable:0.2.4")
+
 	// lombok
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 
+	// cache
+	implementation("org.ehcache:ehcache:3.10.8:jakarta")
+	implementation("org.hibernate.orm:hibernate-jcache")
+
 	// h2
 	runtimeOnly("com.h2database:h2")
+
+	// querydsl
+	// https://v3.leedo.me/devs/51
+	implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+	kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
 
 	// test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
